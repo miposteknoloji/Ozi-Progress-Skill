@@ -1,0 +1,16 @@
+{
+  "name": "proje-ilerleme",
+  "owner": {
+    "name": "Ozer Babaoglu"
+  },
+  "metadata": {
+    "description": "Claude Code için Türkçe ilerleme takibi ve doküman düzeni skill'i."
+  },
+  "plugins": [
+    {
+      "name": "proje-ilerleme",
+      "source": "./plugins/proje-ilerleme",
+      "description": "Claude Code projelerinde dosya tabanlı ilerleme takibi ve doküman düzeni (Türkçe)."
+    }
+  ]
+}

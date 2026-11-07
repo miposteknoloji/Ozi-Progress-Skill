@@ -1,0 +1,8 @@
+{
+  "name": "proje-ilerleme",
+  "version": "1.0.0",
+  "description": "Claude Code projelerinde dosya tabanlı ilerleme takibi ve doküman düzeni: proje kurma/uyarlama, dağınık dokümanları modüllere ayırma, oturum açma/kapama, toparlama, yayın ve sürüm kontrolü.",
+  "author": { "name": "Ozer Babaoglu" },
+  "license": "MIT",
+  "keywords": ["progress", "documentation", "context", "modular", "turkish"]
+}
