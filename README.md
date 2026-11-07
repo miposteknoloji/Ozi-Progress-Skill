@@ -27,7 +27,7 @@ Claude Code içinde:
 
 ```
 /plugin marketplace add miposteknoloji/Ozi-Progress-Skill
-/plugin install proje-ilerleme@proje-ilerleme
+/plugin install proje-ilerleme@ozi-progress-skill
 ```
 
 Ardından Claude Code'u yeniden başlat. Skill `/proje-ilerleme:proje-ilerleme` olarak çağrılır;
