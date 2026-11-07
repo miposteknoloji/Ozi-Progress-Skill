@@ -1,14 +1,129 @@
 # proje-ilerleme
 
+**[English](#english)** · **[Türkçe](#türkçe)**
+
+---
+
+## English
+
+A Claude Code skill for file-based progress tracking and document organization, so that
+**work doesn't get lost when the context fills up**.
+
+> The skill itself, its mode names and the files it generates are in **Turkish**. You can talk
+> to Claude in any language; the commands below stay as they are.
+
+### What it solves
+
+In long projects Claude Code's context fills up, "where were we?" gets hard to answer after
+`/compact` or `/clear`, and docs slowly turn into dozens of scattered files. This skill:
+
+- Keeps a `PROGRESS.md` per module: next step, unfinished work, decisions, data notes.
+- Shows the whole project's focus and open decisions on one page in the root `PROGRESS.md`.
+- Reads only the relevant module's files when opening a session, leaving context for the work itself.
+- Moves a messy pile of docs into modules step by step, with `git mv` and without losing information.
+- Structures the project as core + modules, so adding modules later is easy.
+
+### Installation
+
+#### As a plugin (recommended)
+
+Inside Claude Code:
+
+```
+/plugin marketplace add miposteknoloji/Ozi-Progress-Skill
+/plugin install proje-ilerleme@ozi-progress-skill
+```
+
+Then restart Claude Code. The skill is invoked as `/proje-ilerleme:proje-ilerleme`; Claude also
+picks it up on its own for related requests ("close the session", "where were we").
+
+#### Manually
+
+Copy the `plugins/proje-ilerleme/skills/proje-ilerleme` folder to:
+
+| Scope | Location |
+|---|---|
+| All projects | `~/.claude/skills/proje-ilerleme/` (Windows: `%USERPROFILE%\.claude\skills\proje-ilerleme\`) |
+| Single project | `<project>/.claude/skills/proje-ilerleme/` |
+
+In this case the skill is invoked as `/proje-ilerleme`.
+
+### Usage
+
+Examples are for a manual install; with the plugin install write `/proje-ilerleme:proje-ilerleme`
+instead of `/proje-ilerleme`.
+
+| Situation | Command |
+|---|---|
+| New project | `/proje-ilerleme kur` |
+| Started, reasonably organized project | `/proje-ilerleme uyarla` |
+| Project with scattered docs | `/proje-ilerleme duzenle` (envanter → iskelet → modul → kok → dogrula) |
+| New module | `/proje-ilerleme modul-ekle M02 Depo` |
+| Start of session | `/proje-ilerleme oturum-ac M01` |
+| New task | `/proje-ilerleme gorev M01 <task>` |
+| Before `/compact` | `/proje-ilerleme kaydet` |
+| End of session | `/proje-ilerleme oturum-kapat` |
+| After a context reset | `/proje-ilerleme devam M01` |
+| Work touching two modules | `/proje-ilerleme moduller-arasi M01 core <task>` |
+| Back after a long break / feels messy | `/proje-ilerleme toparla` |
+| Pre-release check | `/proje-ilerleme yayin-kontrol M01` |
+| Cutting a release | `/proje-ilerleme surum-kapat M01 1.0` |
+
+Starting the `uyarla`, `kur`, `duzenle` and `gorev` modes in **plan mode** is recommended.
+
+### Structure it creates
+
+```
+<project>/
+├── CLAUDE.md                 ← root rules and doc map (≤5 KB)
+├── PROGRESS.md               ← focus, modules, open decisions, last review
+└── docs/
+    ├── 00-urun/  VIZYON.md · MODUL_KATALOGU.md · YOL_HARITASI.md   (product: vision, catalog, roadmap)
+    ├── core/     CLAUDE.md · PROGRESS.md · KAPSAM.md               (KAPSAM = scope)
+    ├── modules/<code>-<name>/  CLAUDE.md · PROGRESS.md · KAPSAM.md
+    ├── adr/
+    └── _arsiv/                                                     (archive)
+```
+
+If an existing project uses different folder names, they are kept.
+
+### Principles
+
+- Information lives in files, not in the chat; PROGRESS is updated after every meaningful step.
+- While working on a module, only that module's files are read.
+- Modules never call each other directly; shared needs are defined in the core.
+- Subagents don't write to PROGRESS files; they return a "PROGRESS note".
+- Moves, deletions and commits need user approval; information is never deleted, it is archived.
+- Pricing and package information is not kept in the project.
+
+The skill is designed with multi-module products (e.g. SaaS with modules that can be switched on
+and off) in mind, but works for single-module projects too.
+
+### Repository layout
+
+```
+.claude-plugin/marketplace.json
+plugins/proje-ilerleme/
+├── .claude-plugin/plugin.json
+└── skills/proje-ilerleme/
+    ├── SKILL.md
+    └── references/
+        ├── sablonlar.md     ← templates: PROGRESS, CLAUDE.md, catalog, scope, ADR
+        └── duzenle.md       ← flow for reorganizing scattered docs
+```
+
+### License
+
+MIT
+
+---
+
+## Türkçe
+
 Claude Code ile geliştirilen projelerde **context dolduğunda işin kopmaması** için dosya
 tabanlı ilerleme takibi ve doküman düzeni sağlayan bir skill.
 
-> **English summary:** A Claude Code skill (Turkish) for file-based progress tracking in modular
-> projects. It sets up `PROGRESS.md` files per module, opens and closes sessions, resumes after a
-> context reset, reorganizes a messy pile of Markdown docs into modules, and runs periodic reviews.
-> Install with `/plugin marketplace add miposteknoloji/Ozi-Progress-Skill`.
-
-## Neyi çözer
+### Neyi çözer
 
 Uzun projelerde Claude Code'un context'i dolar, `/compact` veya `/clear` sonrası "nerede
 kalmıştık" sorusu zorlaşır, dokümanlar zamanla onlarca dağınık dosyaya dönüşür. Bu skill:
@@ -19,9 +134,9 @@ kalmıştık" sorusu zorlaşır, dokümanlar zamanla onlarca dağınık dosyaya 
 - Dağınık doküman yığınını aşama aşama, `git mv` ile ve bilgi kaybetmeden modüllere taşır.
 - Projeyi çekirdek + modüller olarak kurgular; sonradan modül eklemek kolaylaşır.
 
-## Kurulum
+### Kurulum
 
-### Plugin olarak (önerilen)
+#### Plugin olarak (önerilen)
 
 Claude Code içinde:
 
@@ -33,7 +148,7 @@ Claude Code içinde:
 Ardından Claude Code'u yeniden başlat. Skill `/proje-ilerleme:proje-ilerleme` olarak çağrılır;
 ayrıca ilgili isteklerde ("oturumu kapat", "nerede kalmıştık") Claude kendisi devreye alır.
 
-### Elle
+#### Elle
 
 `plugins/proje-ilerleme/skills/proje-ilerleme` klasörünü şuraya kopyala:
 
@@ -44,7 +159,7 @@ ayrıca ilgili isteklerde ("oturumu kapat", "nerede kalmıştık") Claude kendis
 
 Bu durumda skill `/proje-ilerleme` olarak çağrılır.
 
-## Kullanım
+### Kullanım
 
 Örnekler elle kurulum içindir; plugin kurulumunda `/proje-ilerleme` yerine
 `/proje-ilerleme:proje-ilerleme` yaz.
@@ -67,7 +182,7 @@ Bu durumda skill `/proje-ilerleme` olarak çağrılır.
 
 `uyarla`, `kur`, `duzenle` ve `gorev` modlarını **plan modunda** başlatman önerilir.
 
-## Oluşturduğu yapı
+### Oluşturduğu yapı
 
 ```
 <proje>/
@@ -83,7 +198,7 @@ Bu durumda skill `/proje-ilerleme` olarak çağrılır.
 
 Mevcut projede farklı klasör adları kullanılıyorsa korunur.
 
-## İlkeler
+### İlkeler
 
 - Bilgi sohbette değil dosyada yaşar; her anlamlı adımda PROGRESS güncellenir.
 - Bir modülde çalışırken yalnız o modülün dosyaları okunur.
@@ -92,7 +207,10 @@ Mevcut projede farklı klasör adları kullanılıyorsa korunur.
 - Taşıma, silme ve commit kullanıcı onayıyla; bilgi silinmez, arşive taşınır.
 - Fiyat ve paket bilgisi projede tutulmaz.
 
-## Depo yapısı
+Skill çok modüllü ürünler (ör. modülleri açılıp kapatılabilen SaaS) düşünülerek tasarlandı;
+tek modüllü projelerde de aynı yapıyla çalışır.
+
+### Depo yapısı
 
 ```
 .claude-plugin/marketplace.json
@@ -105,6 +223,6 @@ plugins/proje-ilerleme/
         └── duzenle.md       ← dağınık doküman taşıma akışı
 ```
 
-## Lisans
+### Lisans
 
 MIT
