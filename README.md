@@ -50,24 +50,26 @@ In this case the skill is invoked as `/proje-ilerleme`.
 
 ### Usage
 
-Examples are for a manual install; with the plugin install write `/proje-ilerleme:proje-ilerleme`
-instead of `/proje-ilerleme`.
+With the plugin install each mode shows up as its own command in the slash menu (e.g.
+`/proje-ilerleme:kaydet`). All modes can also be called through one command:
+`/proje-ilerleme:proje-ilerleme <mode> [module]`. A manual install only has the single command:
+`/proje-ilerleme <mode> [module]`.
 
-| Situation | Command |
-|---|---|
-| New project | `/proje-ilerleme kur` |
-| Started, reasonably organized project | `/proje-ilerleme uyarla` |
-| Project with scattered docs | `/proje-ilerleme duzenle` (envanter → iskelet → modul → kok → dogrula) |
-| New module | `/proje-ilerleme modul-ekle M02 Depo` |
-| Start of session | `/proje-ilerleme oturum-ac M01` |
-| New task | `/proje-ilerleme gorev M01 <task>` |
-| Before `/compact` | `/proje-ilerleme kaydet` |
-| End of session | `/proje-ilerleme oturum-kapat` |
-| After a context reset | `/proje-ilerleme devam M01` |
-| Work touching two modules | `/proje-ilerleme moduller-arasi M01 core <task>` |
-| Back after a long break / feels messy | `/proje-ilerleme toparla` |
-| Pre-release check | `/proje-ilerleme yayin-kontrol M01` |
-| Cutting a release | `/proje-ilerleme surum-kapat M01 1.0` |
+| Situation | Plugin install | Manual install |
+|---|---|---|
+| New project | `/proje-ilerleme:kur` | `/proje-ilerleme kur` |
+| Started, reasonably organized project | `/proje-ilerleme:uyarla` | `/proje-ilerleme uyarla` |
+| Project with scattered docs | `/proje-ilerleme:duzenle` (envanter → iskelet → modul → kok → dogrula) | `/proje-ilerleme duzenle` |
+| New module | `/proje-ilerleme:modul-ekle M02 Depo` | `/proje-ilerleme modul-ekle M02 Depo` |
+| Start of session | `/proje-ilerleme:oturum-ac M01` | `/proje-ilerleme oturum-ac M01` |
+| New task | `/proje-ilerleme:gorev M01 <task>` | `/proje-ilerleme gorev M01 <task>` |
+| Before `/compact` | `/proje-ilerleme:kaydet` | `/proje-ilerleme kaydet` |
+| End of session | `/proje-ilerleme:oturum-kapat` | `/proje-ilerleme oturum-kapat` |
+| After a context reset | `/proje-ilerleme:devam M01` | `/proje-ilerleme devam M01` |
+| Work touching two modules | `/proje-ilerleme:moduller-arasi M01 core <task>` | `/proje-ilerleme moduller-arasi M01 core <task>` |
+| Back after a long break / feels messy | `/proje-ilerleme:toparla` | `/proje-ilerleme toparla` |
+| Pre-release check | `/proje-ilerleme:yayin-kontrol M01` | `/proje-ilerleme yayin-kontrol M01` |
+| Cutting a release | `/proje-ilerleme:surum-kapat M01 1.0` | `/proje-ilerleme surum-kapat M01 1.0` |
 
 Starting the `uyarla`, `kur`, `duzenle` and `gorev` modes in **plan mode** is recommended.
 
@@ -105,6 +107,7 @@ and off) in mind, but works for single-module projects too.
 .claude-plugin/marketplace.json
 plugins/proje-ilerleme/
 ├── .claude-plugin/plugin.json
+├── commands/            ← one shortcut command per mode (kur.md, kaydet.md, …)
 └── skills/proje-ilerleme/
     ├── SKILL.md
     └── references/
@@ -161,24 +164,25 @@ Bu durumda skill `/proje-ilerleme` olarak çağrılır.
 
 ### Kullanım
 
-Örnekler elle kurulum içindir; plugin kurulumunda `/proje-ilerleme` yerine
-`/proje-ilerleme:proje-ilerleme` yaz.
+Plugin kurulumunda her mod komut menüsünde ayrı bir komut olarak görünür (`/proje-ilerleme:kaydet`
+gibi). Tüm modlar tek komuttan da çağrılabilir: `/proje-ilerleme:proje-ilerleme <mod> [modül]`.
+Elle kurulumda yalnız tek komut vardır: `/proje-ilerleme <mod> [modül]`.
 
-| Durum | Komut |
-|---|---|
-| Yeni proje | `/proje-ilerleme kur` |
-| Başlamış, düzenli proje | `/proje-ilerleme uyarla` |
-| Dokümanları dağınık proje | `/proje-ilerleme duzenle` (envanter → iskelet → modul → kok → dogrula) |
-| Yeni modül | `/proje-ilerleme modul-ekle M02 Depo` |
-| Oturum başı | `/proje-ilerleme oturum-ac M01` |
-| Yeni görev | `/proje-ilerleme gorev M01 <görev>` |
-| `/compact` öncesi | `/proje-ilerleme kaydet` |
-| Oturum sonu | `/proje-ilerleme oturum-kapat` |
-| Context sıfırlandıysa | `/proje-ilerleme devam M01` |
-| İki modülü etkileyen iş | `/proje-ilerleme moduller-arasi M01 core <görev>` |
-| Uzun aradan dönüş / dağınıklık | `/proje-ilerleme toparla` |
-| Yayın öncesi kontrol | `/proje-ilerleme yayin-kontrol M01` |
-| Sürüm çıkarken | `/proje-ilerleme surum-kapat M01 1.0` |
+| Durum | Plugin kurulumu | Elle kurulum |
+|---|---|---|
+| Yeni proje | `/proje-ilerleme:kur` | `/proje-ilerleme kur` |
+| Başlamış, düzenli proje | `/proje-ilerleme:uyarla` | `/proje-ilerleme uyarla` |
+| Dokümanları dağınık proje | `/proje-ilerleme:duzenle` (envanter → iskelet → modul → kok → dogrula) | `/proje-ilerleme duzenle` |
+| Yeni modül | `/proje-ilerleme:modul-ekle M02 Depo` | `/proje-ilerleme modul-ekle M02 Depo` |
+| Oturum başı | `/proje-ilerleme:oturum-ac M01` | `/proje-ilerleme oturum-ac M01` |
+| Yeni görev | `/proje-ilerleme:gorev M01 <görev>` | `/proje-ilerleme gorev M01 <görev>` |
+| `/compact` öncesi | `/proje-ilerleme:kaydet` | `/proje-ilerleme kaydet` |
+| Oturum sonu | `/proje-ilerleme:oturum-kapat` | `/proje-ilerleme oturum-kapat` |
+| Context sıfırlandıysa | `/proje-ilerleme:devam M01` | `/proje-ilerleme devam M01` |
+| İki modülü etkileyen iş | `/proje-ilerleme:moduller-arasi M01 core <görev>` | `/proje-ilerleme moduller-arasi M01 core <görev>` |
+| Uzun aradan dönüş / dağınıklık | `/proje-ilerleme:toparla` | `/proje-ilerleme toparla` |
+| Yayın öncesi kontrol | `/proje-ilerleme:yayin-kontrol M01` | `/proje-ilerleme yayin-kontrol M01` |
+| Sürüm çıkarken | `/proje-ilerleme:surum-kapat M01 1.0` | `/proje-ilerleme surum-kapat M01 1.0` |
 
 `uyarla`, `kur`, `duzenle` ve `gorev` modlarını **plan modunda** başlatman önerilir.
 
@@ -216,6 +220,7 @@ tek modüllü projelerde de aynı yapıyla çalışır.
 .claude-plugin/marketplace.json
 plugins/proje-ilerleme/
 ├── .claude-plugin/plugin.json
+├── commands/            ← her mod için kısa komut (kur.md, kaydet.md, …)
 └── skills/proje-ilerleme/
     ├── SKILL.md
     └── references/

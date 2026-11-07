@@ -2,6 +2,7 @@
 name: proje-ilerleme
 description: Claude Code projelerinde dosya tabanlı ilerleme takibi ve doküman düzeni. Yeni proje kurma, mevcut projeye uyarlama, dağınık MD dokümanlarını modüllere ayırma, modül ekleme, oturum açma/kapama, /compact öncesi kayıt, context sıfırlandıktan sonra devam, toparlama, yayın ve sürüm kontrolü. Kullanıcı "nerede kalmıştık", "PROGRESS'i güncelle", "oturumu kapat", "context doldu", "dokümanlar dağıldı", "yeni modül ekleyeceğiz", "projeyi toparla" dediğinde veya PROGRESS.md dosyaları olan bir projede oturuma başlarken bu skill'i kullan.
 license: MIT
+argument-hint: "[kur|uyarla|duzenle|modul-ekle|oturum-ac|gorev|kaydet|oturum-kapat|devam|moduller-arasi|toparla|yayin-kontrol|surum-kapat] [modül] [ayrıntı]"
 ---
 
 # Proje İlerleme Takibi
